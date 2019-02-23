@@ -1,0 +1,36 @@
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+  <h1>Find a Motion Picture by</h1>
+  
+
+
+<form method="POST" action="/find_by/actor">
+<p>Actor: <input type="text" name="name1" placeholder="required"><input type="submit" value="Find"></p> 
+</form>
+
+<form method="POST" action="/find_by/director">
+<p>Director: <input type="text" name="name2" placeholder="required"><input type="submit" value="Find"></p> 
+</form>
+
+<form method="POST" action="/find_by/producer">
+<p>Producer: <input type="text" name="name3" placeholder="required"><input type="submit" value="Find"></p> 
+</form>
+
+
+<br>
+<br>
+<br>
+<p><a href="/logout">Logout</a></p>
+
+</body>
+
+
+</html>
