@@ -1,0 +1,33 @@
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+  <h1>Create a new User Account</h1>
+
+
+
+<form method="POST" action="/user/new/add">
+<p>ID of new User: <input type="number" name="id"></p>
+<p>Enter password: <input type="password" name="password"></p>
+<p>Re-enter password: <input type="password" name="re_password"></p>
+ <input type="submit" value="Sign In"></p> 
+</form>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+</body>
+
+
+</html>
