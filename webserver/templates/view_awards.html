@@ -1,0 +1,25 @@
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+<h1>Awards Given</h1>
+<body>
+
+<div>
+    {% for n in data %}
+    <div>{{n}}</div>
+    {% endfor %}
+</div>
+
+<br>
+
+<p><a href="/get_database">Go Back</a></p>
+
+</body>
+
+
+</html>
