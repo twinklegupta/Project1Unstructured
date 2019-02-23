@@ -1,0 +1,39 @@
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+  <h1>Welcome to the IMDB Database</h1>
+
+
+<p><a href="/another">Go to the other page</a></p>
+
+<form method="POST" action="/actor/add">
+<p>ID of new actor: <input type="number" name="id"> 
+<p>Name of new actor: <input type="text" name="name"> 
+<p>Gender of new actor: <input type="text" name="gender">
+<p>ID of motion picture actor acted in: <input type="number" name="movieID">
+  <input type="submit" value="Add"></p> 
+</form>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<br>
+<br>
+<br>
+<p><a href="/logout">Logout</a></p>
+</body>
+
+
+</html>
