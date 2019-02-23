@@ -1,0 +1,44 @@
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+  <h1>Enter a new Motion Picture</h1>
+
+<form method="POST" action="/picture/add">
+<p>Motion Picture ID: <input type="number" name="pic_id"></p>
+<p>Name of the Motion Picture: <input type="text" name="name"></p>
+<p>Release Date: <input type="date" name="release_date" placeholder="Optional"></p>
+<p>Picture Type: <input type="text" name="picture_type" placeholder="Movies/TV Series (Required)"></p>
+<p>Language: <input type="text" name="language" placeholder="Optional"></p>
+<p>Genre: <input type="text" name="genre" placeholder="Optional"></p>
+<p>Rating (on a scale of 10): <input type="number" name="rating"></p>
+<p>Content Rating: <input type="text" name="content_rating" placeholder="Optional"></p>
+<p>Gross: <input type="text" name="gross" placeholder="Optional"></p>
+<p>Director ID: <input type="number" name="dir_id"></p>
+<p>Producer ID: <input type="number" name="pro_id"></p>
+ <input type="submit" value="Enter"></p> 
+</form>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<br>
+<br>
+<br>
+<p><a href="/logout">Logout</a></p>
+</body>
+
+
+</html>
