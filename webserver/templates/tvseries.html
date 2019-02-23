@@ -1,0 +1,35 @@
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+  <h1>Welcome to the IMDB Database</h1>
+
+
+<form method="POST" action="/tvseries/add">
+<p>Motion Picture ID the TV series: <input type="number" name="id"> 
+<p>Number of episodes in the TV series: <input type="number" name="episodes"> 
+  <input type="submit" value="Add"></p> 
+</form>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<br>
+<br>
+<br>
+<p><a href="/logout">Logout</a></p>
+</body>
+
+
+</html>
