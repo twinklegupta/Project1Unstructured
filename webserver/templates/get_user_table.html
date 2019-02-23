@@ -1,0 +1,30 @@
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+<h1>Users</h1>
+<body>
+
+<div>
+    {% for n in data %}
+    <div>{{n}}</div>
+    {% endfor %}
+</div>
+
+<br>
+
+<p><a href="/">Go Back</a></p>
+
+<br>
+<br>
+<br>
+<p><a href="/logout">Logout</a></p>
+
+</body>
+
+
+</html>
