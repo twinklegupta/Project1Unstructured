@@ -1,0 +1,36 @@
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+  <h1>Enter a new Producer</h1>
+
+
+<form method="POST" action="/producer/add">
+<p>ID of new producer: <input type="number" name="id"></p>
+<p>Name of new producer: <input type="text" name="name"></p>
+<p>Gender of new producer: <input type="text" name="gender"></p>
+ <input type="submit" value="Add"></p> 
+</form>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<br>
+<br>
+<br>
+<p><a href="/logout">Logout</a></p>
+</body>
+
+
+</html>
