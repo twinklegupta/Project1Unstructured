@@ -1,0 +1,41 @@
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+  <h1>Enter a new award given to a motion picture</h1>
+
+
+
+<form method="POST" action="/awards/add">
+<p>Name of the Award: <input type="text" name="name"></p>
+<p>Year: <input type="number" name="year"></p>
+<p>Category: <input type="text" name="category"></p>
+<p>Enter Motion Picture ID: <input type="number" name="pic_id"></p>
+ <input type="submit" value="Enter"></p> 
+</form>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+
+<br>
+<br>
+<br>
+<p><a href="/logout">Logout</a></p>
+</body>
+
+
+</html>
