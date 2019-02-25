@@ -183,3 +183,11 @@ def user_login_page():
 
 def login_page():
   return render_template("logged_in.html")
+
+@app.route('/enter_database')
+def enter_data():
+    return render_template("enter_data.html")
+
+@app.route('/get_database')
+def get_data():
+    return render_template("get_database.html")
