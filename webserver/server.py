@@ -195,3 +195,15 @@ def get_data():
 @app.route('/get_database_admin')
 def get_data_admin():
     return render_template("get_database_admin.html")
+
+@app.route('/get_picture_table')
+def get_picture_table():
+    cursor = g.conn.execute("SELECT * FROM motion_picture")
+    names = []
+    for result in cursor:
+      names.append(str(result[0]) +', '+str(result[1]) +', '+str(result[2]) +', '+str(result[3]) +', '+str(result[4]) +', '+str(result[5]) +', '+str(result[6]) +', '+str(result[7]) +', '+str(result[8]) +', '+str(result[9]) +', '+str(result[10]))  # can also be accessed using result[0]
+    cursor.close()
+
+    context = dict(data = names)
+
+    return render_template("get_picture_table.html", **context)
