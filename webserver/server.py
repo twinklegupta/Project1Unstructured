@@ -191,3 +191,7 @@ def enter_data():
 @app.route('/get_database')
 def get_data():
     return render_template("get_database.html")
+
+@app.route('/get_database_admin')
+def get_data_admin():
+    return render_template("get_database_admin.html")
