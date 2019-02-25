@@ -177,3 +177,9 @@ def do_admin_login():
       flash("Wrong password")
 
     return home()
+
+def user_login_page():
+  return render_template("user_logged_in.html")
+
+def login_page():
+  return render_template("logged_in.html")
