@@ -207,3 +207,15 @@ def get_picture_table():
     context = dict(data = names)
 
     return render_template("get_picture_table.html", **context)
+
+@app.route('/get_actor_table')
+def get_actor_table():
+    cursor = g.conn.execute("SELECT * FROM actor")
+    names = []
+    for result in cursor:
+      names.append(str(result[0]) +', '+str(result[1]) +', '+str(result[2]))  # can also be accessed using result[0]
+    cursor.close()
+
+    context = dict(data = names)
+
+    return render_template("get_actor_table.html", **context)
