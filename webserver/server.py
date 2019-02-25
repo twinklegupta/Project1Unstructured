@@ -158,3 +158,22 @@ def add_new_user():
     g.conn.execute(text(cmd), ID = ID, password = password)
 
     return redirect('/')
+
+@app.route('/log')
+def do_admin_log():
+    return render_template("login.html")
+
+@app.route('/login', methods=['POST'])
+def do_admin_login():
+    flag = 0
+    cursor = g.conn.execute("SELECT user_id, password FROM admin")
+    for record in cursor:
+      if record[0] == int(request.form['username']) and record[1] == request.form['password']:
+        session['logged_in'] = True
+        flag = 1
+        break;
+
+    if not flag:
+      flash("Wrong password")
+
+    return home()
