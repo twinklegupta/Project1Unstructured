@@ -128,3 +128,33 @@ def logout():
     USER_IDID = None
 
     return home()
+
+@app.route('/user/new')
+def new_user():
+    return render_template('user.html')
+
+@app.route('/user/new/add', methods=['POST', 'GET'])
+def add_new_user():
+    ID = request.form['id']
+    password = request.form['password']
+    re_password = request.form['re_password']
+
+    if(str(password) != str(re_password)):
+      flash("passwords don't match")
+      return render_template('user.html')
+
+    flag = 0
+    cursor = g.conn.execute("SELECT user_id FROM users")
+    for record in cursor:
+      if int(record[0]) == int(ID):
+        flag = 1
+        break;
+
+    if flag:
+      flash("user_id already exists")
+      return redirect('/')
+
+    cmd = 'INSERT INTO users(user_id, password) VALUES (:ID, :password) '
+    g.conn.execute(text(cmd), ID = ID, password = password)
+
+    return redirect('/')
