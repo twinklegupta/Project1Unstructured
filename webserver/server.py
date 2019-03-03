@@ -414,3 +414,41 @@ def admin_add():
     g.conn.execute(text(cmd), ID = ID, password = password)
 
     return render_template("logged_in.html")
+
+@app.route('/awards')
+def enter_awards():
+    return render_template("awards.html")
+
+@app.route('/awards/add',methods=['POST'])
+def awards_add():
+    name = request.form['name']
+    year = request.form['year']
+    category = request.form['category']
+    pic_id = request.form['pic_id']
+
+    flag = 0
+    cursor = g.conn.execute("SELECT pic_id FROM motion_picture")
+    for record in cursor:
+      if int(record[0]) == int(pic_id):
+        flag = 1
+        break;
+
+    if not flag:
+      flash("Pic id doesn't exist")
+      return redirect('/awards')
+
+    flag = 0
+    cursor = g.conn.execute("SELECT name, year, category FROM award_given")
+    for record in cursor:
+      if str(record[0]) == str(name) and int(record[1]) == int(year) and str(record[2]) == str(category):
+        flag = 1
+        break;
+
+    if(flag):
+      flash("Award already assigned, please re-enter")
+      return redirect('/awards')
+
+    cmd = 'INSERT INTO award_given(name, year, category, pic_id) VALUES (:name, :year, :category, :pic_id) '
+    g.conn.execute(text(cmd), name = name, year = year, category = category, pic_id = pic_id)
+
+    return render_template("logged_in.html")
