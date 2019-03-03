@@ -703,3 +703,30 @@ def find_by_actor():
     context = dict(data = names)
 
     return render_template("find_by_actor.html", **context)
+
+@app.route('/find_by/director', methods=['POST', 'GET'])
+def find_by_director():
+    cursor = g.conn.execute("SELECT D.name, M.name, M.genre, M.rating FROM motion_picture as M, worked_with as WW, director as D WHERE M.dir_id = WW.dir_id and WW.dir_id = D.dir_id")
+    names = []
+    for result in cursor:
+      if str(result[0]) == str(request.form['name2']):
+        names.append(str(result[1]) +',   '+str(result[2]) +',   '+str(result[3]))
+    cursor.close()
+
+    context = dict(data = names)
+
+    return render_template("find_by_director.html", **context)
+
+
+@app.route('/find_by/producer', methods=['POST', 'GET'])
+def find_by_producer():
+    cursor = g.conn.execute("SELECT P.name, M.name, M.genre, M.rating FROM motion_picture as M, worked_with as WW, producer as P WHERE M.pro_id = WW.pro_id and WW.pro_id = P.pro_id")
+    names = []
+    for result in cursor:
+      if str(result[0]) == str(request.form['name3']):
+        names.append(str(result[1]) +',   '+str(result[2]) +',  '+str(result[3]))
+    cursor.close()
+
+    context = dict(data = names)
+
+    return render_template("find_by_producer.html", **context)
