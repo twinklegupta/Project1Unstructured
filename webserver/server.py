@@ -358,3 +358,29 @@ def director_add():
     g.conn.execute(text(cmd), ID = ID, name = name, gender = gender)
 
     return render_template("logged_in.html")
+
+@app.route('/producer')
+def enter_producer():
+    return render_template("producer.html")
+
+@app.route('/producer/add',methods=['POST'])
+def producer_add():
+    ID = request.form['id']
+    name = request.form['name']
+    gender = request.form['gender']
+
+    flag = 0
+    cursor = g.conn.execute("SELECT pro_id FROM producer")
+    for record in cursor:
+      if int(record[0]) == int(ID):
+        flag = 1
+        break;
+
+    if flag:
+      flash("producer ID already exist")
+      return redirect('/producer')
+
+    cmd = 'INSERT INTO producer(pro_id, name, gender) VALUES (:ID, :name, :gender) '
+    g.conn.execute(text(cmd), ID = ID, name = name, gender = gender)
+
+    return render_template("logged_in.html")
