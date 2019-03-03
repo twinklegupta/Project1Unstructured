@@ -279,3 +279,15 @@ def get_user_table():
     context = dict(data = names)
 
     return render_template("get_user_table.html", **context)
+
+@app.route('/get_director_producer_table')
+def get_director_producer_table():
+    cursor = g.conn.execute("SELECT D.name, P.name FROM director as D, producer as P, worked_with as W WHERE D.dir_id = W.dir_id and W.pro_id = P.pro_id")
+    names = []
+    for result in cursor:
+      names.append(str(result[0]) +', '+str(result[1]))  # can also be accessed using result[0]
+    cursor.close()
+
+    context = dict(data = names)
+
+    return render_template("get_director_producer_table.html", **context)
