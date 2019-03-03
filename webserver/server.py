@@ -636,3 +636,28 @@ def view_wishlist():
     context = dict(data = names)
 
     return render_template("view_wishlist.html", **context)
+
+@app.route('/view_movies')
+def view_movies():
+    cursor = g.conn.execute("SELECT * FROM motion_picture as M")
+    names = []
+    for result in cursor:
+      names.append(str(result[1]) +', '+str(result[2]) +',   '+str(result[3]) +',   '+str(result[4]) +',  '+str(result[5]) +',   '+str(result[6]) +',   '+str(result[7]) +',   '+str(result[8]))
+    cursor.close()
+
+    context = dict(data = names)
+
+    return render_template("view_movies.html", **context)
+
+
+@app.route('/view_awards')
+def view_awards():
+    cursor = g.conn.execute("SELECT M.name, A.name, A.year, A.category FROM motion_picture as M, award_given as A WHERE M.pic_id = A.pic_id")
+    names = []
+    for result in cursor:
+      names.append(str(result[0]) +',   '+str(result[1]) +',   '+str(result[2]) +',   '+str(result[3]))
+    cursor.close()
+
+    context = dict(data = names)
+
+    return render_template("view_awards.html", **context)
