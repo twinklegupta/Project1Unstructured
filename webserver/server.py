@@ -267,3 +267,15 @@ def get_review_table():
     context = dict(data = names)
 
     return render_template("get_review_table.html", **context)
+
+@app.route('/get_user_table')
+def get_user_table():
+    cursor = g.conn.execute("SELECT * FROM users")
+    names = []
+    for result in cursor:
+      names.append(str(result[0]) +', '+str(result[1]))  # can also be accessed using result[0]
+    cursor.close()
+
+    context = dict(data = names)
+
+    return render_template("get_user_table.html", **context)
