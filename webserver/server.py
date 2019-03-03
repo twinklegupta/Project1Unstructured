@@ -580,3 +580,41 @@ def review_add():
     cmd = 'INSERT INTO review(pic_id, user_id, comment, rating) VALUES (:ID, :USER_IDID, :comment, :rating) '
     g.conn.execute(text(cmd), ID = ID, USER_IDID = USER_IDID, comment = comment, rating = rating)
     return render_template("user_logged_in.html")
+
+
+@app.route('/wishlist')
+def enter_wishlist():
+    cursor = g.conn.execute("SELECT pic_id, name FROM motion_picture")
+    names = []
+    for result in cursor:
+      names.append(str(result['pic_id']) +', '+ str(result['name']))  # can also be accessed using result[0]
+    cursor.close()
+
+    context = dict(data = names)
+
+    return render_template("wishlist.html", **context)
+
+@app.route('/wishlist/add',methods=['POST'])
+def wishlist_add():
+    ID = request.form['id']
+    global USER_IDID
+
+    flag = 0
+    cursor = g.conn.execute("SELECT pic_id FROM movies")
+    for record in cursor:
+      if int(record[0]) == int(ID):
+        flag = 1
+        break;
+    if not flag:
+      cursor = g.conn.execute("SELECT pic_id FROM tv_series")
+      for record in cursor:
+        if int(record[0]) == int(ID):
+          flag = 1
+          break;
+    if not flag:
+      flash("pic id does not exist")
+      return redirect('/wishlist')
+
+    cmd = 'INSERT INTO wishlist(user_id, pic_id) VALUES (:USER_IDID, :ID) '
+    g.conn.execute(text(cmd), USER_IDID = USER_IDID, ID = ID)
+    return render_template("user_logged_in.html")
