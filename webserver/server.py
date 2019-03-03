@@ -368,6 +368,7 @@ def producer_add():
     ID = request.form['id']
     name = request.form['name']
     gender = request.form['gender']
+    production_house = request.form['house']
 
     flag = 0
     cursor = g.conn.execute("SELECT pro_id FROM producer")
@@ -425,6 +426,7 @@ def awards_add():
     year = request.form['year']
     category = request.form['category']
     pic_id = request.form['pic_id']
+    is_tied = request.form['is_tied']
 
     flag = 0
     cursor = g.conn.execute("SELECT pic_id FROM motion_picture")
