@@ -661,3 +661,27 @@ def view_awards():
     context = dict(data = names)
 
     return render_template("view_awards.html", **context)
+
+@app.route('/view_reviews')
+def view_reviews():
+    cursor = g.conn.execute("SELECT M.name, R.user_id, R.comment, R.rating FROM motion_picture as M, review as R WHERE M.pic_id = R.pic_id")
+    names = []
+    for result in cursor:
+      names.append(str(result[0]) +',   '+str(result[1]) +',   '+str([result[2]]) +',   '+str(result[3]))
+    cursor.close()
+
+    context = dict(data = names)
+
+    return render_template("view_reviews.html", **context)
+
+@app.route('/best_critic_movies')
+def view_best_critic():
+    cursor = g.conn.execute("SELECT M.name, M.genre, M.rating FROM motion_picture as M ORDER BY M.rating DESC")
+    names = []
+    for result in cursor:
+      names.append(str(result[0]) +',   '+str(result[1]) +',   '+str(result[2]))
+    cursor.close()
+
+    context = dict(data = names)
+
+    return render_template("best_critic_movies.html", **context)
