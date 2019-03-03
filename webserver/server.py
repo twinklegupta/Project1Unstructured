@@ -685,3 +685,21 @@ def view_best_critic():
     context = dict(data = names)
 
     return render_template("best_critic_movies.html", **context)
+
+@app.route('/find_by')
+def find_by():
+    return render_template("find_by.html")
+
+
+@app.route('/find_by/actor', methods=['POST', 'GET'])
+def find_by_actor():
+    cursor = g.conn.execute("SELECT A.name, M.name, M.genre, M.rating FROM motion_picture as M, actor as A, acts as AC WHERE A.act_id = AC.act_id and AC.pic_id = M.pic_id")
+    names = []
+    for result in cursor:
+      if str(result[0]) == str(request.form['name1']):
+        names.append(str(result[1]) +',   '+str(result[2]) +',   '+str(result[3]))
+    cursor.close()
+
+    context = dict(data = names)
+
+    return render_template("find_by_actor.html", **context)
