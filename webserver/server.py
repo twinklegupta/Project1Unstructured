@@ -384,3 +384,33 @@ def producer_add():
     g.conn.execute(text(cmd), ID = ID, name = name, gender = gender)
 
     return render_template("logged_in.html")
+
+@app.route('/admin')
+def enter_admin():
+    return render_template("admin.html")
+
+@app.route('/admin/add',methods=['POST'])
+def admin_add():
+    ID = request.form['id']
+    password = request.form['password']
+    re_password = request.form['re_password']
+
+    if(str(password) != str(re_password)):
+      flash("passwords don't match")
+      return redirect('/admin')
+
+    flag = 0
+    cursor = g.conn.execute("SELECT user_id FROM admin")
+    for record in cursor:
+      if int(record[0]) == int(ID):
+        flag = 1
+        break;
+
+    if flag:
+      flash("Admin ID already exist")
+      return redirect('/admin')
+
+    cmd = 'INSERT INTO admin(user_id, password) VALUES (:ID, :password) '
+    g.conn.execute(text(cmd), ID = ID, password = password)
+
+    return render_template("logged_in.html")
