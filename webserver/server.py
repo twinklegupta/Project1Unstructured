@@ -255,3 +255,15 @@ def get_award_table():
     context = dict(data = names)
 
     return render_template("get_award_table.html", **context)
+
+@app.route('/get_review_table')
+def get_review_table():
+    cursor = g.conn.execute("SELECT R.user_id, R.comment, R.rating, M.name FROM review as R, motion_picture as M WHERE R.pic_id = M.pic_id")
+    names = []
+    for result in cursor:
+      names.append(str(result[0]) +', '+str(result[1]) +', '+str(result[2])+', '+str(result[3]))  # can also be accessed using result[0]
+    cursor.close()
+
+    context = dict(data = names)
+
+    return render_template("get_review_table.html", **context)
