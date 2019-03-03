@@ -452,3 +452,58 @@ def awards_add():
     g.conn.execute(text(cmd), name = name, year = year, category = category, pic_id = pic_id)
 
     return render_template("logged_in.html")
+
+@app.route('/picture')
+def enter_picture():
+    return render_template("picture.html")
+
+@app.route('/picture/add',methods=['POST'])
+def picture_add():
+    ID = request.form['pic_id']
+    name = request.form['name']
+    release_date = request.form['release_date']
+    picture_type = request.form['picture_type']
+    language = request.form['language']
+    genre = request.form['genre']
+    rating = request.form['rating']
+    content_rating = request.form['content_rating']
+    gross = request.form['gross']
+    dir_id = request.form['dir_id']
+    pro_id = request.form['pro_id']
+
+    flag = 0
+    cursor = g.conn.execute("SELECT pic_id FROM motion_picture")
+    for record in cursor:
+      if int(record[0]) == int(ID):
+        flag = 1
+        break;
+
+    if(flag):
+      flash("motion_picture ID already exist")
+      return redirect('/picture')
+
+    if str(picture_type) != 'Movies' and str(picture_type) != 'TV Series' and str(picture_type) != 'movies' and str(picture_type) != 'tv series':
+      flash("Wrong picture_type")
+      return redirect('/picture')
+
+    flag = 0
+    cursor = g.conn.execute("SELECT dir_id, pro_id FROM worked_with")
+    for record in cursor:
+      if int(record[0]) == int(dir_id) and int(record[1]) == int(pro_id):
+        flag = 1
+        break;
+
+    if not flag:
+      cmd = 'INSERT INTO worked_with(dir_id, pro_id) VALUES (:dir_id, :pro_id) '
+      g.conn.execute(text(cmd), dir_id = dir_id, pro_id = pro_id)
+
+    cmd = 'INSERT INTO motion_picture(pic_id, name, release_date, picture_type, language, genre, rating, content_rating, gross, dir_id, pro_id) VALUES (:ID, :name, :release_date, :picture_type, :language, :genre, :rating, :content_rating, :gross, :dir_id, :pro_id) '
+    g.conn.execute(text(cmd), ID = ID, name = name, release_date = release_date, picture_type = picture_type, language = language, genre = genre, rating = rating, content_rating = content_rating, gross = gross, dir_id = dir_id, pro_id = pro_id)
+
+    if(str(picture_type) == 'Movies'):
+      cmd = 'INSERT INTO movies(pic_id, duration) VALUES (:ID, NULL) '
+      g.conn.execute(text(cmd), ID = ID)
+    else:
+      cmd = 'INSERT INTO tv_series(pic_id, no_of_episodes) VALUES (:ID, NULL) '
+      g.conn.execute(text(cmd), ID = ID)
+    return render_template("logged_in.html")
