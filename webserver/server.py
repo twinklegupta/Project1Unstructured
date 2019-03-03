@@ -618,3 +618,7 @@ def wishlist_add():
     cmd = 'INSERT INTO wishlist(user_id, pic_id) VALUES (:USER_IDID, :ID) '
     g.conn.execute(text(cmd), USER_IDID = USER_IDID, ID = ID)
     return render_template("user_logged_in.html")
+
+@app.route('/get_database')
+def get_database():
+    return render_template('get_database.html')
