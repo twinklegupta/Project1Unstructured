@@ -243,3 +243,15 @@ def get_producer_table():
     context = dict(data = names)
 
     return render_template("get_producer_table.html", **context)
+
+@app.route('/get_award_table')
+def get_award_table():
+    cursor = g.conn.execute("SELECT A.name, A.year, A.category, M.name FROM award_given as A, motion_picture as M WHERE A.pic_id = M.pic_id")
+    names = []
+    for result in cursor:
+      names.append(str(result[0]) +', '+str(result[1]) +', '+str(result[2])+', '+str(result[3]))  # can also be accessed using result[0]
+    cursor.close()
+
+    context = dict(data = names)
+
+    return render_template("get_award_table.html", **context)
