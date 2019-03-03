@@ -622,3 +622,17 @@ def wishlist_add():
 @app.route('/get_database')
 def get_database():
     return render_template('get_database.html')
+
+@app.route('/view_wishlist')
+def view_wishlist():
+    global USER_IDID
+    cursor = g.conn.execute("SELECT M.name, W.user_id FROM wishlist as W, motion_picture as M WHERE W.pic_id = M.pic_id")
+    names = []
+    for result in cursor:
+      if int(result[1]) == USER_IDID:
+        names.append(str(result[0]))  # can also be accessed using result[0]
+    cursor.close()
+
+    context = dict(data = names)
+
+    return render_template("view_wishlist.html", **context)
