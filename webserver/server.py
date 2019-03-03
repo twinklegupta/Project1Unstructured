@@ -332,3 +332,29 @@ def actor_add():
     g.conn.execute(text(cmd), ID = ID, MID = MID)
 
     return render_template("logged_in.html")
+
+@app.route('/director')
+def enter_director():
+    return render_template("director.html")
+
+@app.route('/director/add',methods=['POST'])
+def director_add():
+    ID = request.form['id']
+    name = request.form['name']
+    gender = request.form['gender']
+
+    flag = 0
+    cursor = g.conn.execute("SELECT dir_id FROM director")
+    for record in cursor:
+      if int(record[0]) == int(ID):
+        flag = 1
+        break;
+
+    if flag:
+      flash("director ID already exist")
+      return redirect('/director')
+
+    cmd = 'INSERT INTO director(dir_id, name, gender) VALUES (:ID, :name, :gender) '
+    g.conn.execute(text(cmd), ID = ID, name = name, gender = gender)
+
+    return render_template("logged_in.html")
