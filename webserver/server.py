@@ -531,3 +531,27 @@ def tvseries_add():
     cmd = 'UPDATE tv_series SET no_of_episodes = :episodes WHERE pic_id = :ID'
     g.conn.execute(text(cmd), ID = ID, episodes = episodes)
     return render_template("logged_in.html")
+
+@app.route('/movies')
+def enter_movies():
+    return render_template("movies.html")
+
+@app.route('/movies/add',methods=['POST'])
+def movies_add():
+    ID = request.form['id']
+    duration = request.form['duration']
+
+    flag = 0
+    cursor = g.conn.execute("SELECT pic_id FROM movies")
+    for record in cursor:
+      if int(record[0]) == int(ID):
+        flag = 1
+        break;
+
+    if not flag:
+      flash("pic id does not exist")
+      return redirect('/movies')
+
+    cmd = 'UPDATE movies SET duration = :duration WHERE pic_id = :ID '
+    g.conn.execute(text(cmd), ID = ID, duration = duration)
+    return render_template("logged_in.html")
