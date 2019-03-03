@@ -555,3 +555,28 @@ def movies_add():
     cmd = 'UPDATE movies SET duration = :duration WHERE pic_id = :ID '
     g.conn.execute(text(cmd), ID = ID, duration = duration)
     return render_template("logged_in.html")
+
+@app.route('/review')
+def enter_review():
+    return render_template("review.html")
+
+@app.route('/review/add',methods=['POST'])
+def review_add():
+    ID = request.form['id']
+    comment = request.form['comment']
+    rating = request.form['rating']
+    global USER_IDID
+
+    flag = 0
+    cursor = g.conn.execute("SELECT pic_id FROM movies")
+    for record in cursor:
+      if int(record[0]) == int(ID):
+        flag = 1
+        break;
+    if not flag:
+      flash("pic id does not exist")
+      return redirect('/review')
+
+    cmd = 'INSERT INTO review(pic_id, user_id, comment, rating) VALUES (:ID, :USER_IDID, :comment, :rating) '
+    g.conn.execute(text(cmd), ID = ID, USER_IDID = USER_IDID, comment = comment, rating = rating)
+    return render_template("user_logged_in.html")
