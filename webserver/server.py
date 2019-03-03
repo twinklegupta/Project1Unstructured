@@ -291,3 +291,44 @@ def get_director_producer_table():
     context = dict(data = names)
 
     return render_template("get_director_producer_table.html", **context)
+
+@app.route('/actor')
+def enter_actor():
+    return render_template("actor.html")
+
+@app.route('/actor/add',methods=['POST'])
+def actor_add():
+    ID = request.form['id']
+    name = request.form['name']
+    gender = request.form['gender']
+    MID = request.form['movieID']
+    flag = 0
+
+    cursor = g.conn.execute("SELECT pic_id FROM motion_picture")
+    for m_id in cursor:
+      if int(m_id[0]) == int(MID):
+        flag = 1
+
+    if flag == 0:
+      flash("Movie ID doesn't exist")
+      return redirect('/actor')
+
+
+    flag = 0
+    cursor = g.conn.execute("SELECT act_id FROM actor")
+    for record in cursor:
+      if int(record[0]) == int(ID):
+        flag = 1
+        break;
+
+    if flag:
+      flash("Actor ID already exist")
+      return redirect('/actor')
+
+    cmd = 'INSERT INTO actor(act_id, name, gender) VALUES (:ID, :name, :gender) '
+    g.conn.execute(text(cmd), ID = ID, name = name, gender = gender)
+
+    cmd = 'INSERT INTO acts(act_id, pic_id) VALUES (:ID, :MID) '
+    g.conn.execute(text(cmd), ID = ID, MID = MID)
+
+    return render_template("logged_in.html")
