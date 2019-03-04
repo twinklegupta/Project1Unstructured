@@ -303,6 +303,7 @@ def enter_actor():
 @app.route('/actor/add',methods=['POST'])
 def actor_add():
     #TODO: add years in industry
+    #TODO: add role description
     ID = request.form['id']
     name = request.form['name']
     gender = request.form['gender']
@@ -574,7 +575,7 @@ def enter_review():
 def review_add():
     ID = request.form['id']
     comment = request.form['comment']
-    rating = request.form['rating']
+    rating = request.form['rating'
     global USER_IDID
 
     flag = 0
