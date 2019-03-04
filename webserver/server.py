@@ -302,6 +302,7 @@ def enter_actor():
 
 @app.route('/actor/add',methods=['POST'])
 def actor_add():
+    #TODO: add years in industry
     ID = request.form['id']
     name = request.form['name']
     gender = request.form['gender']
