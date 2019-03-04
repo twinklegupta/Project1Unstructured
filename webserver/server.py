@@ -708,6 +708,7 @@ def find_by():
 
 @app.route('/find_by/actor', methods=['POST', 'GET'])
 def find_by_actor():
+    #TODO: autocomplete
     cursor = g.conn.execute("SELECT A.name, M.name, M.genre, M.rating FROM motion_picture as M, actor as A, acts as AC WHERE A.act_id = AC.act_id and AC.pic_id = M.pic_id")
     names = []
     for result in cursor:
