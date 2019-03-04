@@ -200,6 +200,7 @@ def get_data_admin():
 
 @app.route('/get_picture_table')
 def get_picture_table():
+    #TODO: add paging support
     cursor = g.conn.execute("SELECT * FROM motion_picture")
     names = []
     for result in cursor:
