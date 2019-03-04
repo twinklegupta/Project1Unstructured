@@ -316,6 +316,7 @@ def actor_add():
 
     if flag == 0:
       flash("Movie ID doesn't exist")
+      # TODO: redirect to movie add page
       return redirect('/actor')
 
 
