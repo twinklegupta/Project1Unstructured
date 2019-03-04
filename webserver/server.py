@@ -528,6 +528,7 @@ def enter_tvseries():
 @app.route('/tvseries/add',methods=['POST'])
 def tvseries_add():
     ID = request.form['id']
+    # TODO: add season
     episodes = request.form['episodes']
 
     flag = 0
