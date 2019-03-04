@@ -166,6 +166,7 @@ def do_admin_log():
 
 @app.route('/login', methods=['POST'])
 def do_admin_login():
+    # TODO add capcha
     flag = 0
     cursor = g.conn.execute("SELECT user_id, password FROM admin")
     for record in cursor:
