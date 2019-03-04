@@ -1,6 +1,6 @@
 <html>
   <style>
-    body{ 
+    body{
       font-size: 15pt;
       font-family: arial;
     }
@@ -15,10 +15,11 @@
     <div>{{n}}</div>
     {% endfor %}
   </div>
+  <-- -->
 
 <form method="POST" action="/wishlist/add">
 <p>ID of the Motion Picture: <input type="number" name="id" placeholder="required"></p>
- <input type="submit" value="Add to wishlist"></p> 
+ <input type="submit" value="Add to wishlist"></p>
 </form>
 {% with messages = get_flashed_messages() %}
   {% if messages %}

@@ -578,7 +578,7 @@ def enter_review():
 def review_add():
     ID = request.form['id']
     comment = request.form['comment']
-    rating = request.form['rating'
+    rating = request.form['rating']
     global USER_IDID
 
     flag = 0
@@ -598,6 +598,7 @@ def review_add():
 
 @app.route('/wishlist')
 def enter_wishlist():
+    # TODO: display rating for movies in wishlist
     cursor = g.conn.execute("SELECT pic_id, name FROM motion_picture")
     names = []
     for result in cursor:
