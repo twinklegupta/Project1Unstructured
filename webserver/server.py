@@ -668,6 +668,7 @@ def view_movies():
 
 @app.route('/view_awards')
 def view_awards():
+    # TODO: add presenter
     cursor = g.conn.execute("SELECT M.name, A.name, A.year, A.category FROM motion_picture as M, award_given as A WHERE M.pic_id = A.pic_id")
     names = []
     for result in cursor:
