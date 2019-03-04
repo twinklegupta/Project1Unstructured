@@ -519,6 +519,7 @@ def picture_add():
 
 @app.route('/tvseries')
 def enter_tvseries():
+    #TODO: add genre
     return render_template("tvseries.html")
 
 @app.route('/tvseries/add',methods=['POST'])
