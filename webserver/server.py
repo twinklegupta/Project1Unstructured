@@ -346,6 +346,7 @@ def enter_director():
 
 @app.route('/director/add',methods=['POST'])
 def director_add():
+    # TODO: add experience
     ID = request.form['id']
     name = request.form['name']
     gender = request.form['gender']
