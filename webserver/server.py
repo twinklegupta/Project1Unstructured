@@ -135,6 +135,7 @@ def new_user():
 
 @app.route('/user/new/add', methods=['POST', 'GET'])
 def add_new_user():
+    # TODO: add password contraint
     ID = request.form['id']
     password = request.form['password']
     re_password = request.form['re_password']
